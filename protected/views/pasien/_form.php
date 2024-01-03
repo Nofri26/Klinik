@@ -22,6 +22,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model, 'nik'); ?>
+		<?php echo $form->textField($model, 'nik', array('size' => 30, 'maxlength' => 20)); ?>
+		<?php echo $form->error($model, 'nik'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model, 'tanggal_lahir'); ?>
 		<?php
 		// Menggunakan widget datepicker untuk memilih tanggal

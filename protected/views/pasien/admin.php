@@ -48,6 +48,7 @@ $('.search-form form').submit(function(){
 	'columns' => array(
 		'id',
 		'nama',
+		'nik',
 		'tanggal_lahir',
 		array(
 			'name' => 'wilayah_id',

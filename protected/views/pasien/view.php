@@ -23,6 +23,7 @@ $this->menu = array(
 	'attributes' => array(
 		'id',
 		'nama',
+		'nik',
 		'tanggal_lahir',
 		array(
 			'label' => 'Wilayah',

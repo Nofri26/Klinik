@@ -6880,3 +6880,22 @@ Stack trace:
 REQUEST_URI=/klinik/index.php/transaksi/invoice/2
 HTTP_REFERER=http://localhost/klinik/index.php/Transaksi/index
 ---
+2024/01/03 05:51:50 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "index". in C:\xampp\htdocs\Klinik\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\Klinik\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('index')
+#1 C:\xampp\htdocs\Klinik\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\Klinik\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/Klinik/index.php/index?r=gii
+---
+2024/01/03 07:18:49 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "index". in C:\xampp\htdocs\Klinik\yii\framework\web\CController.php:486
+Stack trace:
+#0 C:\xampp\htdocs\Klinik\yii\framework\web\CController.php(270): CController->missingAction('index')
+#1 C:\xampp\htdocs\Klinik\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#2 C:\xampp\htdocs\Klinik\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('Pasien/index')
+#3 C:\xampp\htdocs\Klinik\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\Klinik\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/Klinik/index.php/Pasien/index
+HTTP_REFERER=http://localhost/Klinik/
+---

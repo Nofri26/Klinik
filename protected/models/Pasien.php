@@ -8,6 +8,7 @@
  * @property string $nama
  * @property string $tanggal_lahir
  * @property integer $wilayah_id
+ * @property string $nik
  *
  * The followings are the available model relations:
  * @property Wilayah $wilayah
@@ -20,33 +21,21 @@ class Pasien extends CActiveRecord
 	 * @return string the associated database table name
 	 */
 	public $jumlah_pasien;
+
 	public function tableName()
 	{
 		return 'pasien';
 	}
-	public function actionAutocomplete()
+
+	public function getCountPerWilayah()
 	{
-		if (isset($_GET['term'])) {
-			$criteria = new CDbCriteria;
-			$criteria->compare('nama', $_GET['term'], true);
+		$criteria = new CDbCriteria();
+		$criteria->select = 'wilayah_id, COUNT(*) as jumlah_pasien';
+		$criteria->group = 'wilayah_id';
+		$data = self::model()->findAll($criteria);
 
-			$pasien = Pasien::model()->findAll($criteria);
-
-			$data = array();
-			foreach ($pasien as $p) {
-				$data[] = array(
-					'id' => $p->id,
-					'value' => $p->nama,
-					'tanggal_lahir' => $p->tanggal_lahir,
-					'wilayah_id' => $p->wilayah->nama, // Ganti dengan atribut yang sesuai
-				);
-			}
-
-			echo CJSON::encode($data);
-			Yii::app()->end();
-		}
+		return $data;
 	}
-
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -56,12 +45,13 @@ class Pasien extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nama, tanggal_lahir, wilayah_id', 'required'),
+			array('nama, tanggal_lahir, wilayah_id, nik', 'required'),
 			array('wilayah_id', 'numerical', 'integerOnly' => true),
 			array('nama', 'length', 'max' => 255),
+			array('nik', 'length', 'max' => 20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nama, tanggal_lahir, wilayah_id', 'safe', 'on' => 'search'),
+			array('id, nama, tanggal_lahir, wilayah_id, nik', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -89,6 +79,7 @@ class Pasien extends CActiveRecord
 			'nama' => 'Nama',
 			'tanggal_lahir' => 'Tanggal Lahir',
 			'wilayah_id' => 'Wilayah',
+			'nik' => 'NIK',
 		);
 	}
 
@@ -114,20 +105,11 @@ class Pasien extends CActiveRecord
 		$criteria->compare('nama', $this->nama, true);
 		$criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
 		$criteria->compare('wilayah_id', $this->wilayah_id);
+		$criteria->compare('nik', $this->nik, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getCountPerWilayah()
-	{
-		$criteria = new CDbCriteria();
-		$criteria->select = 'wilayah_id, COUNT(*) as jumlah_pasien';
-		$criteria->group = 'wilayah_id';
-		$data = self::model()->findAll($criteria);
-
-		return $data;
 	}
 
 	/**

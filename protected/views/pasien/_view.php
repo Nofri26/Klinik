@@ -13,6 +13,10 @@
 	<?php echo CHtml::encode($data->nama); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('nik')); ?>:</b>
+	<?php echo CHtml::encode($data->nik); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('tanggal_lahir')); ?>:</b>
 	<?php echo CHtml::encode($data->tanggal_lahir); ?>
 	<br />
