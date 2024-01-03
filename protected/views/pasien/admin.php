@@ -9,7 +9,7 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
 	array('label' => 'List Pasien', 'url' => array('index')),
-	array('label' => 'Create Pasien', 'url' => array('create')),
+	array('label' => 'Daftarkan Pasien', 'url' => array('create')),
 	array('label' => 'Grafik Pasien Wilayah', 'url' => array('grafikPasienWilayah')), // Tambahkan menu untuk grafik
 );
 

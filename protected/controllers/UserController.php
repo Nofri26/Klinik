@@ -30,7 +30,7 @@ class UserController extends Controller
 			array(
 				'allow',  // allow all users to perform 'index' and 'view' actions
 				'actions' => array('index', 'view'),
-				'users' => array('*'),
+				'users' => array('@'),
 			),
 			array(
 				'allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -45,14 +45,8 @@ class UserController extends Controller
 			array(
 				'deny',  // deny all users
 				'users' => array('*'),
-				'deniedCallback' => array($this, 'showAccessDenied')
 			),
 		);
-	}
-
-	public function showAccessDenied()
-	{
-		$this->render('accessDenied'); // 'accessDenied' adalah view untuk menampilkan pesan akses ditolak
 	}
 
 	/**

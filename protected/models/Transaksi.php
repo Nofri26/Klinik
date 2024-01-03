@@ -35,11 +35,11 @@ class Transaksi extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pasien_id, tindakan_id, obat_id, jumlah, total_harga', 'required'),
-			array('pasien_id, tindakan_id, obat_id, jumlah', 'numerical', 'integerOnly'=>true),
-			array('total_harga', 'length', 'max'=>10),
+			array('pasien_id, tindakan_id, obat_id, jumlah', 'numerical', 'integerOnly' => true),
+			array('total_harga', 'length', 'max' => 10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pasien_id, tindakan_id, obat_id, jumlah, total_harga', 'safe', 'on'=>'search'),
+			array('id, pasien_id, tindakan_id, obat_id, jumlah, total_harga', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -88,17 +88,17 @@ class Transaksi extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('pasien_id',$this->pasien_id);
-		$criteria->compare('tindakan_id',$this->tindakan_id);
-		$criteria->compare('obat_id',$this->obat_id);
-		$criteria->compare('jumlah',$this->jumlah);
-		$criteria->compare('total_harga',$this->total_harga,true);
+		$criteria->compare('id', $this->id);
+		$criteria->compare('pasien_id', $this->pasien_id);
+		$criteria->compare('tindakan_id', $this->tindakan_id);
+		$criteria->compare('obat_id', $this->obat_id);
+		$criteria->compare('jumlah', $this->jumlah);
+		$criteria->compare('total_harga', $this->total_harga, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -108,8 +108,28 @@ class Transaksi extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Transaksi the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function getPasienData($pasienId)
+	{
+		$data = array(); // Inisialisasi array untuk menyimpan data
+
+		// Ambil data dari tabel Transaksi sesuai dengan $pasienId
+		$transaksi = Transaksi::model()->findByAttributes(array('pasien_id' => $pasienId));
+
+		if ($transaksi !== null) {
+			// Isi array $data dengan nilai yang sesuai
+			$data['tindakan_id'] = $transaksi->tindakan_id; // Ganti dengan nama kolom yang sesuai di tabel Transaksi
+			$data['obat_id'] = $transaksi->obat_id; // Ganti dengan nama kolom yang sesuai di tabel Transaksi
+			$data['jumlah'] = $transaksi->jumlah;
+			$data['total_harga'] = $transaksi->total_harga;
+			// Tambahkan kode untuk mendapatkan nilai lainnya sesuai kebutuhan
+		} else {
+		}
+
+		return json_encode($data);
 	}
 }

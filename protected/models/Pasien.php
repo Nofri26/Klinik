@@ -24,6 +24,29 @@ class Pasien extends CActiveRecord
 	{
 		return 'pasien';
 	}
+	public function actionAutocomplete()
+	{
+		if (isset($_GET['term'])) {
+			$criteria = new CDbCriteria;
+			$criteria->compare('nama', $_GET['term'], true);
+
+			$pasien = Pasien::model()->findAll($criteria);
+
+			$data = array();
+			foreach ($pasien as $p) {
+				$data[] = array(
+					'id' => $p->id,
+					'value' => $p->nama,
+					'tanggal_lahir' => $p->tanggal_lahir,
+					'wilayah_id' => $p->wilayah->nama, // Ganti dengan atribut yang sesuai
+				);
+			}
+
+			echo CJSON::encode($data);
+			Yii::app()->end();
+		}
+	}
+
 
 	/**
 	 * @return array validation rules for model attributes.

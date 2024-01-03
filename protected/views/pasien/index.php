@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-	array('label' => 'Create Pasien', 'url' => array('create')),
+	array('label' => 'Daftarkan Pasien', 'url' => array('create')),
 	array('label' => 'Manage Pasien', 'url' => array('admin')),
 	array('label' => 'Grafik Pasien Wilayah', 'url' => array('grafikPasienWilayah'))
 );

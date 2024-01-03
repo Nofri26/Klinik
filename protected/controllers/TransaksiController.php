@@ -1,5 +1,8 @@
 <?php
 
+require_once Yii::app()->basePath . '/../vendor/autoload.php';
+
+
 class TransaksiController extends Controller
 {
 	/**
@@ -27,6 +30,16 @@ class TransaksiController extends Controller
 	public function accessRules()
 	{
 		return array(
+			array(
+				'allow', // allow all users to access 'grafikPasienWilayah'
+				'actions' => array('getPasienData'),
+				'users' => array('admin'),
+			),
+			array(
+				'allow', // allow all users to access 'grafikPasienWilayah'
+				'actions' => array('invoice'),
+				'users' => array('admin'),
+			),
 			array(
 				'allow',  // allow all users to perform 'index' and 'view' actions
 				'actions' => array('index', 'view'),
@@ -167,6 +180,57 @@ class TransaksiController extends Controller
 		$model->setAttribute('obat_id', $namaObat);
 
 		return $model;
+	}
+
+	public function actionGetPasienData($pasienId)
+	{
+		$data = Transaksi::model()->getPasienData($pasienId);
+
+		$jsonData = array(
+			'status' => 'success',
+			'data' => $data,
+		);
+
+		// Return the data as JSON response
+		header('Content-Type: application/json');
+		echo json_encode($jsonData);
+		Yii::app()->end();
+	}
+
+	public function actionInvoice($id)
+	{
+		$model = $this->loadModel($id);
+
+		$pdf = new TCPDF();
+
+		$pdf->SetCreator('Your Name');
+		$pdf->SetAuthor('Your Name');
+		$pdf->SetTitle('Invoice for Transaction : ' . $model->pasien_id);
+		$pdf->SetSubject('Invoice');
+
+		$pdf->AddPage();
+		$pdf->SetFont('helvetica', '', 12);
+
+		$content = 'Invoice for Transaction ID: ' . $model->pasien_id;
+		$pdf->MultiCell(0, 10, $content);
+
+		$pdf->Ln(10);
+		$content = 'Tindakan: ' . $model->tindakan_id;
+		$pdf->MultiCell(0, 10, $content);
+
+		$pdf->Ln(10);
+		$content = 'Obat: ' . $model->obat_id;
+		$pdf->MultiCell(0, 10, $content);
+
+		$pdf->Ln(10);
+		$content = 'Harga: ' . $model->jumlah;
+		$pdf->MultiCell(0, 10, $content);
+
+		$pdf->Ln(10);
+		$content = 'Harga: ' . $model->total_harga;
+		$pdf->MultiCell(0, 10, $content);
+
+		$pdf->Output('invoice_' . $model->pasien_id . '.pdf', 'D');
 	}
 
 	/**

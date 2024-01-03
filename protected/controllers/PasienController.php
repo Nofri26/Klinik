@@ -30,7 +30,7 @@ class PasienController extends Controller
 			array(
 				'allow', // allow all users to access 'grafikPasienWilayah'
 				'actions' => array('grafikPasienWilayah'),
-				'users' => array('*'),
+				'users' => array('admin'),
 			),
 			array(
 				'allow',  // allow all users to perform 'index' and 'view' actions

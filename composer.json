@@ -1,0 +1,15 @@
+{
+    "name": "nofri/klinik",
+    "description": "deskripsi",
+    "type": "project",
+    "require": {
+        "rbac/rbac-standard": "dev-master",
+        "tecnickcom/tcpdf": "dev-main"
+    },
+    "authors": [
+        {
+            "name": "Nofri"
+        }
+    ],
+    "minimum-stability": "dev"
+}

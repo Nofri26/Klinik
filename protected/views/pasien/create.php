@@ -2,17 +2,17 @@
 /* @var $this PasienController */
 /* @var $model Pasien */
 
-$this->breadcrumbs=array(
-	'Pasiens'=>array('index'),
+$this->breadcrumbs = array(
+	'Pasiens' => array('index'),
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Pasien', 'url'=>array('index')),
-	array('label'=>'Manage Pasien', 'url'=>array('admin')),
+$this->menu = array(
+	array('label' => 'List Pasien', 'url' => array('index')),
+	array('label' => 'Manage Pasien', 'url' => array('admin')),
 );
 ?>
 
-<h1>Create Pasien</h1>
+<h1>Daftarkan Pasien</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model' => $model)); ?>
